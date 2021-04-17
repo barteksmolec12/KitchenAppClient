@@ -1,25 +1,42 @@
 import logo from './logo.svg';
 import './App.css';
+import MainPageApp from './MainPageApp'
+import React, { Component } from 'react';
 
-function App() {
+
+class App extends Component{
+  constructor(props){
+    super(props);
+    this.state={apiResponse:{}};
+  }
+
+  callApi(){
+    fetch("http://localhost:9000/users")
+    .then(res=>res.json())
+    .then(res=>this.setState({apiResponse:res}));
+    console.log(this.state.apiResponse.name);
+    
+  }
+  
+
+  // componentWillMount(){
+  //    this.callApi();
+  // }
+
+
+
+render() {
+  const mainView=<MainPageApp userName="Bartek"></MainPageApp>
+  
   return (
+    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+     {mainView}
+
+
     </div>
   );
 }
-
+}
 export default App;
